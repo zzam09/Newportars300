@@ -352,6 +352,66 @@
             letter-spacing: 0.04em;
             transition: border-color 0.3s, color 0.3s;
         }
+
+        /* ── Mobile ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+                justify-content: flex-start;
+                padding-top: 16px;
+            }
+            .login-card {
+                border-radius: 20px;
+            }
+            .login-cover {
+                height: 80px;
+            }
+            .login-body {
+                padding: 0 20px 24px;
+                margin-top: -24px;
+            }
+            .login-logo {
+                margin-bottom: 20px;
+            }
+            .step-heading {
+                margin-bottom: 18px;
+            }
+            .step-heading h2 {
+                font-size: 19px;
+            }
+            .otp-group {
+                gap: 8px;
+                margin-bottom: 18px;
+            }
+            .otp-group input {
+                height: 52px;
+                font-size: 20px;
+                border-radius: 12px;
+            }
+            .btn {
+                padding: 14px;
+            }
+            .footer-note {
+                padding: 14px 20px 20px;
+            }
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .login-body {
+                padding: 0 16px 20px;
+            }
+            .otp-group {
+                gap: 6px;
+            }
+            .otp-group input {
+                height: 48px;
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>

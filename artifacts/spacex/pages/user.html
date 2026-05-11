@@ -435,6 +435,102 @@
         }
         .theme-toggle:hover { border-color: var(--border-bright); color: var(--text); }
         .theme-toggle svg { width: 16px; height: 16px; }
+
+        /* ── Mobile ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+            }
+            #signout-btn {
+                right: 56px !important;
+                top: 12px;
+                width: 36px;
+                height: 36px;
+            }
+            .profile-card {
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+            .profile-cover {
+                height: 110px;
+            }
+            .profile-content {
+                padding: 0 18px 22px;
+                margin-top: -36px;
+            }
+            .avatar-wrap {
+                width: 72px;
+                height: 72px;
+                margin-bottom: 12px;
+            }
+            .profile-info h1 {
+                font-size: 20px;
+            }
+            .profile-stats {
+                gap: 12px;
+                padding-top: 18px;
+                margin-top: 18px;
+            }
+            .stat-item strong {
+                font-size: 13px;
+            }
+            .section-label {
+                margin: 28px 0 12px 2px;
+            }
+            .locked-card {
+                padding: 24px 20px;
+                border-radius: 18px;
+            }
+            .locked-card h4 {
+                font-size: 15px;
+                margin-bottom: 8px;
+            }
+            .locked-card p {
+                font-size: 12px;
+                max-width: 100%;
+            }
+            .plan-main-content {
+                padding: 22px 18px;
+            }
+            .plan-name {
+                font-size: 17px;
+            }
+            .plan-item.selected {
+                transform: none;
+            }
+            .feature-list {
+                padding: 18px 18px 0;
+            }
+            .btn {
+                padding: 15px;
+                font-size: 14px;
+            }
+            .payment-summary {
+                padding: 18px;
+            }
+            .tier-header h2 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .profile-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .stat-item strong {
+                font-size: 12px;
+            }
+            .locked-card {
+                padding: 20px 16px;
+            }
+        }
     </style>
     <script>
         /* Apply saved theme before paint to avoid flash */
