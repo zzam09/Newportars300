@@ -23,6 +23,16 @@ timeoutMs = 20000
 
 [userenv.shared]
 BASE_PATH = "/"
+# Firebase keys should be set in Netlify Environment Variables (VITE_ prefix)
+# Do NOT put real keys here if you are deploying to Netlify / Vercel
+# VITE_FIREBASE_API_KEY = ""
+# VITE_FIREBASE_AUTH_DOMAIN = ""
+# VITE_FIREBASE_PROJECT_ID = ""
+# VITE_FIREBASE_STORAGE_BUCKET = ""
+# VITE_FIREBASE_MESSAGING_SENDER_ID = ""
+# VITE_FIREBASE_APP_ID = ""
+
+# Only the ones below are safe / non-sensitive
 VITE_FIREBASE_AUTH_DOMAIN = "spacexmembership-5cdc3.firebaseapp.com"
 VITE_FIREBASE_PROJECT_ID = "spacexmembership-5cdc3"
 VITE_FIREBASE_STORAGE_BUCKET = "spacexmembership-5cdc3.firebasestorage.app"
