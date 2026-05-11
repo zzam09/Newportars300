@@ -1,7 +1,21 @@
-[build]
-  command = "pnpm run build"
-  publish = "artifacts/spacex/dist"
-  base = "artifacts/spacex"
+# Netlify configuration for the SpaceX frontend (artifacts/spacex)
 
+[build]
+  # Base directory (where the package.json for the frontend lives)
+  base = "artifacts/spacex"
+  
+  # Build command (already defined in the spacex package.json)
+  command = "pnpm run build"
+  
+  # Publish directory - where Vite outputs the built files
+  publish = "dist"
+
+# Disable secret scanning (since we still have keys in .replit)
 [build.environment]
   SECRETS_SCAN_ENABLED = "false"
+
+# Optional: Improve caching
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
