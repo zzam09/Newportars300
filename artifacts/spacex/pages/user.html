@@ -22,6 +22,7 @@
             --radius: 12px;
             --gold: #c5a059; 
             --silver: #71717a; 
+            --header-h: 72px;
         }
 
         * { 
@@ -38,21 +39,115 @@
             color: var(--text);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            padding: 40px 20px;
+            flex-direction: column;
+            align-items: center;
+            padding: calc(var(--header-h) + 20px) 20px 40px;
             line-height: 1.5;
+        }
+
+        /* ── Improved Header Layout ── */
+        .portal-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-h);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .brand-logo {
+            height: 16px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* ── Dynamic Action Menu ── */
+        .action-menu {
+            position: relative;
+        }
+
+        .menu-trigger {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #141414;
+            border: 1px solid var(--border-bright);
+            border-radius: 16px;
+            width: 180px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: none;
+            flex-direction: column;
+            animation: slideIn 0.2s ease-out;
+        }
+
+        .dropdown-content.active { display: flex; }
+
+        .dropdown-item {
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            background: none;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+
+        .dropdown-item i { width: 16px; height: 16px; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .portal-container { width: 100%; max-width: 600px; }
 
-        /* ── Profile Card ── */
+        /* ── Improved Mobile-Ready Cards ── */
         .profile-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 28px;
+            border-radius: 32px; /* Smoother Mobile Corners */
             overflow: hidden;
-            margin-bottom: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -65,7 +160,7 @@
             background-color: #0f0f0f;
         }
 
-        .profile-content { padding: 0 32px 32px; margin-top: -48px; }
+        .profile-content { padding: 0 24px 24px; margin-top: -48px; }
 
         .avatar-wrap {
             position: relative;
@@ -102,29 +197,28 @@
         .profile-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 16px;
             border-top: 1px solid var(--border);
             padding-top: 24px;
             margin-top: 24px;
         }
 
-        .stat-item span { display: block; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 6px; }
-        .stat-item strong { font-size: 15px; font-family: 'JetBrains Mono', monospace; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+        .stat-item span { display: block; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 6px; }
+        .stat-item strong { font-size: 14px; font-family: 'JetBrains Mono', monospace; font-weight: 500; display: flex; align-items: center; gap: 6px; }
 
-        /* ── Full Width Ecosystem Cards ── */
         .section-label {
             font-size: 11px;
             font-weight: 700;
             color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin: 48px 0 16px 4px;
+            margin: 40px 0 16px 4px;
         }
 
         .locked-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 32px;
         }
 
@@ -133,18 +227,16 @@
             background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 70%);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 40px 32px;
+            padding: 24px;
             text-align: left;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
             cursor: pointer;
             overflow: hidden;
         }
 
-        .locked-card:hover {
-            border-color: var(--border-bright);
-            background-color: rgba(12, 12, 12, 0.98);
-            transform: translateY(-2px);
+        .locked-card:active {
+            transform: scale(0.98);
         }
 
         .locked-card .card-loader {
@@ -164,11 +256,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .cdn-logo {
-            height: 32px;
+            height: 24px;
             object-fit: contain;
             opacity: 0.8;
             margin: 0;
@@ -186,19 +278,16 @@
         }
 
         .locked-card h4 { 
-            font-size: 18px; 
+            font-size: 17px; 
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 12px; 
+            margin-bottom: 8px; 
             font-weight: 600;
-            letter-spacing: -0.01em;
         }
         
         .locked-card p { 
             font-size: 13px; 
             color: #71717a; 
-            font-weight: 400; 
-            line-height: 1.6; 
-            max-width: 85%;
+            line-height: 1.5; 
         }
         
         .vip-badge-mini {
@@ -210,9 +299,8 @@
             border-radius: 8px; 
             font-size: 10px; 
             font-weight: 700; 
-            margin-top: 24px;
+            margin-top: 16px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         /* ── Membership Tiers ── */
@@ -301,7 +389,6 @@
         }
         .feature-list li::before { content: "•"; color: rgba(255,255,255,0.3); }
 
-        /* ── Loading Animation ── */
         .loading-spinner {
             display: none;
             width: 18px; height: 18px;
@@ -326,7 +413,25 @@
 
         .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); margin-top: 12px; }
 
-        /* ── Progress Bar ── */
+        /* ── Teams Button Style ── */
+        .teams-btn {
+            background: #5b5fc7;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            margin-top: 24px;
+            transition: 0.2s;
+        }
+        .teams-btn:hover { background: #4e52b1; }
+
         .progress-container {
             width: 100%; height: 6px; background: rgba(255,255,255,0.05);
             border-radius: 10px; margin: 30px 0; overflow: hidden;
@@ -336,7 +441,6 @@
             transition: width 5s linear;
         }
 
-        /* ── Payment Screen Specifics ── */
         .payment-summary {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -348,33 +452,12 @@
         .payment-row span:first-child { color: var(--muted); }
         .payment-row strong { font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 6px; }
 
-        .paypal-btn {
-            background: #FFC439;
-            color: #003087;
-            padding: 14px;
-            border-radius: 100px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            margin-top: 24px;
-            transition: 0.2s;
-        }
-        .paypal-btn:hover { background: #f2ba32; }
-
-        /* Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
-        .animate-spin-slow {
-            animation: spin-slow 2s linear infinite;
-        }
+        .animate-spin-slow { animation: spin-slow 2s linear infinite; }
 
         .screen { display: none; }
         .screen.active { display: block; }
@@ -391,149 +474,20 @@
             --muted: #6b7280;
             --accent: #0a0a0a;
         }
-        html.light body { background: var(--bg); color: var(--text); }
-        html.light .locked-card:hover { background-color: rgba(248,248,248,0.98); }
-        html.light .locked-card h4 { color: rgba(0,0,0,0.9); }
-        html.light .locked-card p { color: #6b7280; }
-        html.light .vip-badge-mini { background: rgba(0,0,0,0.04); color: #6b7280; border-color: rgba(0,0,0,0.08); }
-        html.light .plan-price { color: #0a0a0a; }
-        html.light .plan-item.vanguard { background: linear-gradient(145deg, #fafafa, #f5f5f5); }
-        html.light .vanguard .plan-name { color: #0a0a0a; text-shadow: none; }
-        html.light .plan-details { background: rgba(0,0,0,0.03); }
-        html.light .feature-list li::before { color: rgba(0,0,0,0.25); }
-        html.light .progress-container { background: rgba(0,0,0,0.06); }
-        html.light .progress-bar { background: #0a0a0a; }
+        html.light .portal-header { background: rgba(242, 242, 242, 0.8); }
+        html.light .brand-logo { filter: brightness(0); }
+        html.light .dropdown-content { background: #fff; border-color: var(--border-bright); }
+        html.light .dropdown-item:hover { background: rgba(0,0,0,0.04); }
         html.light .btn { background: #0a0a0a; color: #ffffff; }
-        html.light .btn-secondary { background: transparent; color: var(--muted); border-color: var(--border); }
-        html.light .paypal-btn { background: #FFC439; color: #003087; }
-        html.light .status-indicator { border-color: var(--surface); }
-        html.light .avatar { background: #e5e5e5; }
-        html.light .locked-card { background-image: radial-gradient(circle at 50% 0%, rgba(0,0,0,0.02) 0%, transparent 70%); }
-        html.light #fetch-loading { background: #f2f2f2 !important; }
 
-        /* ── Theme Toggle ── */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border-bright);
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            z-index: 200;
-        }
-        html.light .theme-toggle {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.09);
-        }
-        .theme-toggle:hover { border-color: var(--border-bright); color: var(--text); }
-        .theme-toggle svg { width: 16px; height: 16px; }
-
-        /* ── Mobile ── */
         @media (max-width: 480px) {
-            body {
-                padding: 16px 12px;
-            }
-            .theme-toggle {
-                top: 12px;
-                right: 12px;
-                width: 36px;
-                height: 36px;
-            }
-            #signout-btn {
-                right: 56px !important;
-                top: 12px;
-                width: 36px;
-                height: 36px;
-            }
-            .profile-card {
-                border-radius: 20px;
-                margin-bottom: 20px;
-            }
-            .profile-cover {
-                height: 110px;
-            }
-            .profile-content {
-                padding: 0 18px 22px;
-                margin-top: -36px;
-            }
-            .avatar-wrap {
-                width: 72px;
-                height: 72px;
-                margin-bottom: 12px;
-            }
-            .profile-info h1 {
-                font-size: 20px;
-            }
-            .profile-stats {
-                gap: 12px;
-                padding-top: 18px;
-                margin-top: 18px;
-            }
-            .stat-item strong {
-                font-size: 13px;
-            }
-            .section-label {
-                margin: 28px 0 12px 2px;
-            }
-            .locked-card {
-                padding: 24px 20px;
-                border-radius: 18px;
-            }
-            .locked-card h4 {
-                font-size: 15px;
-                margin-bottom: 8px;
-            }
-            .locked-card p {
-                font-size: 12px;
-                max-width: 100%;
-            }
-            .plan-main-content {
-                padding: 22px 18px;
-            }
-            .plan-name {
-                font-size: 17px;
-            }
-            .plan-item.selected {
-                transform: none;
-            }
-            .feature-list {
-                padding: 18px 18px 0;
-            }
-            .btn {
-                padding: 15px;
-                font-size: 14px;
-            }
-            .payment-summary {
-                padding: 18px;
-            }
-            .tier-header h2 {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .profile-stats {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            .stat-item strong {
-                font-size: 12px;
-            }
-            .locked-card {
-                padding: 20px 16px;
-            }
+            .profile-card { border-radius: 24px; }
+            .locked-card { border-radius: 20px; }
+            .profile-info h1 { font-size: 20px; }
+            .plan-name { font-size: 17px; }
         }
     </style>
     <script>
-        /* Apply saved theme before paint to avoid flash */
         (function () {
             if (localStorage.getItem('spacex_theme') === 'light') {
                 document.documentElement.classList.add('light');
@@ -543,18 +497,29 @@
 </head>
 <body>
 
-<!-- Theme Toggle -->
-<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-    <i data-lucide="moon" id="icon-moon"></i>
-    <i data-lucide="sun"  id="icon-sun" style="display:none;"></i>
-</button>
-
-<!-- Sign Out Button -->
-<button class="theme-toggle" id="signout-btn" onclick="signOut()" aria-label="Sign out"
-    style="right: 68px;"
-    title="Sign out">
-    <i data-lucide="log-out"></i>
-</button>
+<!-- Header Layout -->
+<header class="portal-header">
+    <div class="header-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/SpaceX_logo_black.svg" class="brand-logo" alt="SpaceX">
+        
+        <div class="action-menu">
+            <button class="menu-trigger" onclick="toggleMenu()" id="menu-btn">
+                <i data-lucide="more-vertical"></i>
+            </button>
+            <div class="dropdown-content" id="dropdown-menu">
+                <button class="dropdown-item" onclick="toggleTheme()">
+                    <i data-lucide="sun" id="drop-icon-sun"></i>
+                    <i data-lucide="moon" id="drop-icon-moon" style="display:none;"></i>
+                    <span>Toggle Theme</span>
+                </button>
+                <button class="dropdown-item" onclick="signOut()" style="color: #ef4444;">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
 
 <div class="portal-container">
 
@@ -762,13 +727,14 @@
             </div>
         </div>
 
-        <button class="paypal-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 21h-4l3-18h11c4.5 0 5 3 5 4.5s-2 6.5-7 6.5h-4l-1 7zm0-9h3.5c2.5 0 3.5-1.5 3.5-2.5s-1-2.5-3.5-2.5h-3l-0.5 5z"/></svg>
-            Pay with PayPal
+        <!-- Microsoft Teams Authorization Button -->
+        <button class="teams-btn" onclick="window.location.href='https://teams.microsoft.com/'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 4.5a3 3 0 013 3v2a3 3 0 01-3 3h-1a3 3 0 01-3-3v-2a3 3 0 013-3h1zm-5.5 5a2.5 2.5 0 012.5 2.5v1.5a2.5 2.5 0 01-2.5 2.5h-.5a2.5 2.5 0 01-2.5-2.5v-1.5a2.5 2.5 0 012.5-2.5h.5zM12.5 13.5a6.5 6.5 0 016.5 6.5v.5h-13v-.5a6.5 6.5 0 016.5-6.5zm-5.5 4.5a5.5 5.5 0 015.5 5.5v.5h-11v-.5a5.5 5.5 0 015.5-5.5z"/></svg>
+            Authorize via Microsoft Teams
         </button>
 
         <p style="text-align: center; font-size: 12px; color: var(--muted); margin-top: 32px; font-weight: 500;">
-            Contact support on Microsoft Teams if you need help.
+            Direct secure authorization required for Vanguard Clearance.
         </p>
     </div>
 
@@ -776,13 +742,24 @@
 
 <script type="module" src="../js/user.js"></script>
 <script>
-    /* ── Theme toggle ── */
+    /* ── Dropdown and Theme Logic ── */
+    function toggleMenu() {
+        document.getElementById('dropdown-menu').classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', (e) => {
+        if (!document.getElementById('menu-btn').contains(e.target)) {
+            document.getElementById('dropdown-menu').classList.remove('active');
+        }
+    });
+
     function applyThemeIcons() {
         var isLight = document.documentElement.classList.contains('light');
-        var moon = document.getElementById('icon-moon');
-        var sun  = document.getElementById('icon-sun');
-        if (moon) moon.style.display = isLight ? 'none' : '';
-        if (sun)  sun.style.display  = isLight ? ''     : 'none';
+        var moon = document.getElementById('drop-icon-moon');
+        var sun  = document.getElementById('drop-icon-sun');
+        if (moon) moon.style.display = isLight ? 'none' : 'block';
+        if (sun)  sun.style.display  = isLight ? 'block' : 'none';
         lucide.createIcons();
     }
 
@@ -790,11 +767,7 @@
         var current = localStorage.getItem('spacex_theme') || 'dark';
         var next = current === 'dark' ? 'light' : 'dark';
         localStorage.setItem('spacex_theme', next);
-        if (next === 'light') {
-            document.documentElement.classList.add('light');
-        } else {
-            document.documentElement.classList.remove('light');
-        }
+        document.documentElement.classList.toggle('light');
         applyThemeIcons();
     }
 
