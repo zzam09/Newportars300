@@ -344,23 +344,24 @@
 
         /* ── Mobile ── */
         @media (max-width: 480px) {
-            body { padding: 12px; justify-content: flex-start; padding-top: 16px; }
+            body { padding: 16px; }
             .login-card { border-radius: 20px; }
             .login-body { padding: 24px 20px; }
             .login-logo { margin-bottom: 20px; }
             .step-heading { margin-bottom: 18px; }
             .step-heading h2 { font-size: 20px; }
             .otp-group { gap: 8px; margin-bottom: 18px; }
-            .otp-group input { height: 52px; font-size: 20px; border-radius: 10px; }
+            .otp-group input { width: 52px; height: 60px; font-size: 20px; border-radius: 10px; }
             .btn { padding: 15px; font-size: 14px; }
             .footer-note { padding: 14px 20px 20px; }
             .theme-toggle { top: 12px; right: 12px; }
         }
 
         @media (max-width: 360px) {
-            .login-body { padding: 0 16px 20px; }
+            body { padding: 12px; }
+            .login-body { padding: 20px 16px; }
             .otp-group { gap: 6px; }
-            .otp-group input { height: 48px; font-size: 18px; }
+            .otp-group input { width: 46px; height: 56px; font-size: 18px; }
         }
     </style>
 </head>
