@@ -28,3 +28,15 @@ VITE_FIREBASE_PROJECT_ID = "spacexmembership-5cdc3"
 VITE_FIREBASE_STORAGE_BUCKET = "spacexmembership-5cdc3.firebasestorage.app"
 VITE_FIREBASE_MESSAGING_SENDER_ID = "373866019176"
 VITE_FIREBASE_APP_ID = "1:373866019176:web:2df0df0cd94391760bbedd"
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+[[ports]]
+localPort = 19742
+externalPort = 3000
