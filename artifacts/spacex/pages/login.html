@@ -614,56 +614,18 @@ function resetOtpInputs() {
     });
 }
 
-/* ─── Resend email via Resend API ─── */
+/* ─── Send OTP via API server (server proxies to Resend) ─── */
 async function sendEmailOTP(email, code) {
-    const apiKey = import.meta.env.VITE_RESEND_API_KEY;
-    if (!apiKey) {
-        const error = new Error('VITE_RESEND_API_KEY environment variable is not set');
-        console.error('❌ Resend API: Missing API key:', error.message);
-        throw error;
+    const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, code })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.error || 'Failed to send email');
     }
-    
-    console.log('📤 Resend API: Making request to send email to:', email);
-    console.log('📤 Resend API: Using API key (first 10 chars):', apiKey.substring(0, 10) + '...');
-    
-    try {
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                from: 'onboarding@resend.dev',
-                to: email,
-                subject: 'Your SpaceX Portal Access Code',
-                html: `
-                    <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
-                        <h1 style="font-size: 24px; margin-bottom: 20px;">Your SpaceX Portal Access Code</h1>
-                        <div style="font-size: 48px; font-weight: bold; letter-spacing: 10px; margin: 20px 0;">${code}</div>
-                        <p style="font-size: 14px; color: #666;">This code expires in 10 minutes.</p>
-                    </div>
-                `
-            })
-        });
-        
-        console.log('📤 Resend API: Response status:', response.status);
-        const responseData = await response.json();
-        console.log('📤 Resend API: Response data:', responseData);
-        
-        if (!response.ok) {
-            const errorMsg = `Resend API error: ${response.status} - ${responseData.message || 'Unknown error'}`;
-            console.error('❌ Resend API:', errorMsg);
-            throw new Error(errorMsg);
-        }
-        
-        console.log('✅ Resend API: Email sent successfully');
-        return responseData;
-        
-    } catch (error) {
-        console.error('❌ Resend API: Error sending email:', error);
-        throw error;
-    }
+    return data;
 }
 
 /* ─── Step 1: Send Code ─── */
